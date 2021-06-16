@@ -17,7 +17,6 @@ function getModuleInfo(file) {
     const ast = parser.parse(body, {
         sourceType: "module", // 表示要解析的是ES模块
     })
-    console.log('ast:', ast);
     // 依赖收集
     const deps = {};
     traverse(ast, {
@@ -63,11 +62,10 @@ function parseModules(file) {
  */
 function getDeps(temp, { deps }) {
     Object.keys(deps).forEach((key) => {
-        console.log('key:',key, deps);
         const child = getModuleInfo(deps[key]);
         temp.push(child);
         getDeps(temp, child);
-    })
+    });
 }
 /**
  * 生成bundle文件
